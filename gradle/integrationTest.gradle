@@ -1,0 +1,30 @@
+apply from: "$rootDir/gradle/databaseSetup.gradle"
+
+sourceSets {
+    integrationTest {
+        java.srcDir file('src/integTest/java')
+        resources.srcDir file('src/integTest/resources')
+        compileClasspath = sourceSets.main.output + configurations.testRuntime
+        runtimeClasspath = output + compileClasspath
+    }
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs the integration tests.'
+    group = 'verification'
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    testResultsDir = file("$testResultsDir/integration")
+}
+
+integrationTest.dependsOn startAndPrepareDatabase
+stopDatabase.dependsOn integrationTest
+task databaseIntegrationTest(dependsOn: stopDatabase)
+
+check.dependsOn databaseIntegrationTest
+
+sonarRunner {
+    sonarProperties {
+        properties['sonar.tests'] += sourceSets.integrationTest.allSource.srcDirs
+    }
+}

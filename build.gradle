@@ -1,0 +1,36 @@
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+    sonarProperties {
+        property 'sonar.projectName', 'todo'
+        property 'sonar.projectDescription', 'A task management application'
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+    group = 'com.manning.gia'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply from: "$rootDir/gradle/jacoco.gradle"
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        testResultsDir = file("$testResultsDir/unit")
+    }
+
+    sonarRunner {
+        sonarProperties {
+            property 'sonar.sourceEncoding', 'UTF-8'
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.5'
+}
