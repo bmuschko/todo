@@ -2,30 +2,32 @@
 
 This project is a simple, MVC-based task management web application written in Java and JavaScript. It's main purpose is to demonstrate implementation approaches for typical project automation requirements with the help of Gradle. The code of this project is featured in the book link:http://www.manning.com/muschko["Gradle in Action"] published by Manning.
 
+
 == Applied Gradle features
 
 * Usage of the Gradle Wrapper.
 * Support for a multi-project build.
-* Deployment to local Jetty container.
+* Deployment to an embedded link:http://www.eclipse.org/jetty/[Jetty] container.
 * Implements various testing strategies:
-** Unit testing with Spock.
-** Integration testing against an embedded H2 database.
-** Functional testing with Geb against Firefox.
-* Generates code coverage metrics with JaCoCo.
-* Integrates with Sonar for performing code quality analysis.
+** Unit testing with link:https://code.google.com/p/spock/[Spock].
+** Integration testing against an embedded link:http://www.h2database.com/[H2 database].
+** Functional testing with link:http://www.gebish.org/[Geb] against Firefox.
+* Generates code coverage metrics with link:http://www.eclemma.org/jacoco/[JaCoCo].
+* Integrates with link:http://www.sonarsource.org/[Sonar] for performing code quality analysis.
+
 
 == Running the application
 
 You can directly run your application your local machine. There's no need to install a Servlet container. In a terminal window execute the following command from the root level of the project:
 
-.Mac OS X/*nix
+*Mac OS X/*nix*
 
 [source]
 ----
 ./gradlew :web:jettyRun
 ----
 
-.Windows
+*Windows*
 
 [source]
 ----
