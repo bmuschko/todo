@@ -14,14 +14,12 @@ task integrationTest(type: Test) {
     group = 'verification'
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = sourceSets.integrationTest.runtimeClasspath
-    testResultsDir = file("$testResultsDir/integration")
+    reports.junitXml.destination = file("$reports.junitXml.destination/integration")
+    dependsOn startAndPrepareDatabase
+    finalizedBy stopDatabase
 }
 
-integrationTest.dependsOn startAndPrepareDatabase
-stopDatabase.dependsOn integrationTest
-task databaseIntegrationTest(dependsOn: stopDatabase)
-
-check.dependsOn databaseIntegrationTest
+check.dependsOn integrationTest
 
 sonarRunner {
     sonarProperties {

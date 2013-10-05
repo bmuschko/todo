@@ -1,3 +1,5 @@
+apply from: "$rootDir/gradle/envConfig.gradle"
+apply from: "$rootDir/gradle/versioning.gradle"
 apply plugin: 'sonar-runner'
 
 sonarRunner {
@@ -21,7 +23,7 @@ subprojects {
     }
 
     test {
-        testResultsDir = file("$testResultsDir/unit")
+        reports.junitXml.destination = file("$reports.junitXml.destination/unit")
     }
 
     sonarRunner {
@@ -32,5 +34,5 @@ subprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.5'
+    gradleVersion = '1.7'
 }

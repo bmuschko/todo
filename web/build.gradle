@@ -1,15 +1,35 @@
-project(':web') {
-    apply plugin: 'war'
-    apply plugin: 'jetty'
-	apply from: "$rootDir/gradle/functionalTest.gradle"
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply from: "$rootDir/gradle/functionalTest.gradle"
+apply from: "$rootDir/gradle/publishMaven.gradle"
+apply from: "$rootDir/gradle/sshDeploy.gradle"
+apply from: "$rootDir/gradle/smokeTest.gradle"
 
-    dependencies {
-	    compile project(':repository')
-	    providedCompile 'javax.servlet:servlet-api:2.5'
-	    runtime 'javax.servlet:jstl:1.1.2'
+dependencies {
+    compile project(':repository')
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    runtime 'javax.servlet:jstl:1.1.2'
+    runtime 'taglibs:standard:1.1.2'
+}
+
+task createBuildInfoFile << {
+    def buildInfoFile = new File("$buildDir/build-info.properties")
+    Properties props = new Properties()
+    props.setProperty('version', project.version.toString())
+    props.setProperty('timestamp', project.buildTimestamp)
+    props.store(buildInfoFile.newWriter(), null)
+}
+
+war {
+    dependsOn createBuildInfoFile
+    baseName = 'todo'
+
+    from(buildDir) {
+        include 'build-info.properties'
+        into('WEB-INF/classes')
     }
+}
 
-	jettyRun {
-		contextPath = 'todo'
-	}
+jettyRun {
+	contextPath = 'todo'
 }

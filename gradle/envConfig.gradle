@@ -1,0 +1,8 @@
+def configFile = file("$rootDir/gradle/config/buildConfig.groovy")
+def env = project.hasProperty('env') ? project.getProperty('env') : 'test'
+logger.quiet "Loading configuration for environment '$env'."
+def parsedConfig = new ConfigSlurper(env).parse(configFile.toURL())
+
+allprojects {
+    ext.config = parsedConfig
+}

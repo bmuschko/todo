@@ -11,9 +11,15 @@ This project is a simple, MVC-based task management web application written in J
 * Implements various testing strategies:
 ** Unit testing with link:https://code.google.com/p/spock/[Spock].
 ** Integration testing against an embedded link:http://www.h2database.com/[H2 database].
-** Functional testing with link:http://www.gebish.org/[Geb] against Firefox.
+** Functional testing with link:http://www.gebish.org/[Geb] against local or remote web container in Firefox.
+** Smoke testing of a deployed application with link:http://groovy.codehaus.org/modules/http-builder/[HTTPBuilder].
 * Generates code coverage metrics with link:http://www.eclemma.org/jacoco/[JaCoCo].
 * Integrates with link:http://www.sonarsource.org/[Sonar] for performing code quality analysis.
+* Publishing to a Maven repository using the link:http://www.gradle.org/docs/current/userguide/publishing_maven.html[Maven Publishing plugin].
+* Implements dynamic project versioning strategy.
+* Reading environment-specific configuration at build time using link:http://groovy.codehaus.org/ConfigSlurper/[Groovy's ConfigSlurper].
+* Retrieving the deliverable artifact from a Maven repository.
+* Deployment of the deliverable artifact to a Tomcat container using SCP/SSH.
 
 
 == Running the application

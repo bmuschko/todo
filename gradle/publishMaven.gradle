@@ -1,0 +1,34 @@
+apply plugin: 'maven-publish'
+
+ext {
+    artifactoryReleaseRepoUrl = config.binaryRepository.releaseUrl
+    artifactoryUsername = project.hasProperty('artifactoryUsername') ? project.getProperty('artifactoryUsername') : null
+    artifactoryPassword = project.hasProperty('artifactoryPassword') ? project.getProperty('artifactoryPassword') : null
+}
+
+publishing {
+    publications {
+        toDoWebApp(MavenPublication) {
+            from components.web
+            artifactId 'todo-web'
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('name', 'To Do application')
+                root.appendNode('description', 'A simple task management application.')
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name 'remoteArtifactory'
+            url artifactoryReleaseRepoUrl
+
+            credentials {
+                username = artifactoryUsername                                 
+                password = artifactoryPassword
+            }
+        }   
+    }
+}
