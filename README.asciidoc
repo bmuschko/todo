@@ -4,7 +4,7 @@ link:https://snap-ci.com/bmuschko/todo/branch/master[image:https://snap-ci.com/b
 
 This project is a simple, MVC-based task management web application written in Java and JavaScript. Its main purpose is to demonstrate implementation approaches for typical project automation requirements with the help of Gradle. The code of this project is featured in the book link:http://www.manning.com/muschko["Gradle in Action"] published by Manning.
 
-*Note:* Due to a bug in Groovy 1.8.9's ConfigSlurper, the application is not buildable with JDK 8. For more
+*Note:* Due to a bug in Groovy 1.8.9's ConfigSlurper, the application is not buildable with JDK 8 and the checked-in version of the Gradle wrapper. For more
 information please see the link:https://discuss.gradle.org/t/gradle-fails-on-jdk8-with-java-lang-classnotfoundexception-java-util-hashmap-entry/2271/1[discussion on the Gradle forum]. If you are using JDK8, you will want to build the code with
 a Gradle version >= 2.0.
 
