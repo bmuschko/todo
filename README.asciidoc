@@ -6,7 +6,7 @@ This project is a simple, MVC-based task management web application written in J
 
 *Note:* Due to a bug in Groovy 1.8.9's ConfigSlurper, the application is not buildable with JDK 8 and the checked-in version of the Gradle wrapper. For more
 information please see the link:https://discuss.gradle.org/t/gradle-fails-on-jdk8-with-java-lang-classnotfoundexception-java-util-hashmap-entry/2271/1[discussion on the Gradle forum]. If you are using JDK8, you will want to build the code with
-a Gradle version >= 2.0.
+a Gradle version >= 2.0. The branch `gradle-2.x` provides a runnable example using Gradle 2.11.
 
 
 == Applied Gradle features
