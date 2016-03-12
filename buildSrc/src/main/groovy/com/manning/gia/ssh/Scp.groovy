@@ -25,6 +25,6 @@ class Scp extends DefaultTask {
     void runCommand() {
         logger.quiet "Copying file '$sourceFile' to server."
         ant.taskdef(name: 'jschScp', classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp', classpath: classpath.asPath)
-        ant.jschScp(file: sourceFile, todir: destination, keyfile: keyFile.canonicalPath, port: port, trust: 'true')
+        ant.jschScp(file: getSourceFile(), todir: destination, keyfile: keyFile.canonicalPath, port: port, trust: 'true')
     }
 }

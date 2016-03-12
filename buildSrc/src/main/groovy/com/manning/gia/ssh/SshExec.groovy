@@ -29,6 +29,6 @@ class SshExec extends DefaultTask {
         logger.quiet "Executing SSH command '$command'."
 
         ant.taskdef(name: 'jschSshExec', classname: 'org.apache.tools.ant.taskdefs.optional.ssh.SSHExec', classpath: classpath.asPath)
-        ant.jschSshExec(host: host, username: username, command: command, port: port, keyfile: keyFile.canonicalPath, trust: 'true')
+        ant.jschSshExec(host: host, username: username, command: getCommand(), port: port, keyfile: keyFile.canonicalPath, trust: 'true')
     }
 }

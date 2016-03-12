@@ -21,6 +21,17 @@ task integrationTest(type: Test) {
 
 check.dependsOn integrationTest
 
+integrationTest.jacoco.destinationFile = file("$jacocoReportsExecDir/integration.exec")
+
+task jacocoIntegrationTestReport(type: JacocoReport) {
+    executionData integrationTest
+    sourceSets sourceSets.main
+
+    reports {
+        html.destination file("$jacocoReportsHtmlDir/integration")
+    }
+}
+
 sonarRunner {
     sonarProperties {
         properties['sonar.tests'] += sourceSets.integrationTest.allSource.srcDirs

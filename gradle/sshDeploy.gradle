@@ -4,7 +4,6 @@ import com.manning.gia.ssh.SshExec
 apply from: "$rootDir/gradle/downloadWar.gradle"
 
 ext {
-    warFile = configurations.todo.singleFile
     tomcatRemoteDir = '/opt/apache-tomcat-7.0.42'
 
     userHome = System.properties['user.home']
@@ -22,7 +21,7 @@ dependencies {
 
 task copyWarToServer(type: Scp, dependsOn: fetchToDoWar) {
     classpath = configurations.jsch
-    sourceFile = warFile
+    conventionMapping.sourceFile = { configurations.todo.singleFile }
     destination = remoteTmpDir
     keyFile = vagrantKeyFile
     port = config.server.sshPort
@@ -59,7 +58,7 @@ task deleteOldArtifacts(dependsOn: [deleteTomcatWebappsDir, deleteTomcatWorkDir]
 }
 
 task copyWarToWebappsDir(type: SshExec, dependsOn: deleteOldArtifacts) {
-    command = "sudo -u tomcat cp /tmp/$warFile.name $tomcatRemoteDir/webapps/todo.war"
+    conventionMapping.command = { "sudo -u tomcat cp /tmp/$configurations.todo.singleFile.name $tomcatRemoteDir/webapps/todo.war" }
 
     doFirst {
         logger.quiet "Deploying WAR file to Tomcat."
