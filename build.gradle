@@ -12,6 +12,10 @@ sonarRunner {
 allprojects {
     apply plugin: 'idea'
     group = 'com.manning.gia'
+    
+    repositories {
+        mavenCentral()
+    }
 }
 
 subprojects {
@@ -21,10 +25,6 @@ subprojects {
     ext.compatibilityVersion = '1.6'
     sourceCompatibility = compatibilityVersion
     targetCompatibility = compatibilityVersion
-
-    repositories {
-        mavenCentral()
-    }
 
     test {
         reports.junitXml.destination = file("$reports.junitXml.destination/unit")
