@@ -5,4 +5,4 @@ jdk:
   - oraclejdk7
 
 script:
-  - ./gradlew build -s
+  - ./gradlew integrationTest -s
